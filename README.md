@@ -1,66 +1,38 @@
-Cronograma de Desarrollo de la Criptomoneda Ligada al Oro (2 meses)
-Semana 1-2: Planificación y Configuración
-Reunión Inicial y Planificación
+ 
+# Token de Oro  HAUv
+Criptomoneda digital que está respaldada o vinculada al valor del oro físico. Cada token representa una cantidad específica de oro, combinando la estabilidad del oro con la flexibilidad de la tecnología blockchain. A continuación, se detallan las principales características de este tipo de token:
 
-Reunión con los stakeholders para definir los requisitos del proyecto.
-Documentar todos los detalles y especificaciones de la criptomoneda.
-Establecer un cronograma detallado y asignar tareas.
-Configuración del Entorno de Desarrollo
+## Características Principales
 
-Configurar el entorno de desarrollo blockchain.
-Selección y configuración de herramientas de desarrollo (IDE, repositorios de código, etc.).
-Semana 3-4: Desarrollo del Contrato Inteligente
-Diseño del Contrato Inteligente
+1. **Respaldo en Oro Físico**
+   - Cada token está respaldado por una cantidad específica de oro físico, almacenado en bóvedas seguras y auditadas. Por ejemplo, un token podría representar 1 gramo de oro, 1 onza de oro, u otra unidad de medida.
 
-Diseñar la estructura del contrato inteligente.
-Definir las funciones necesarias (emisión, vinculación al precio del oro, actualización de precios, etc.).
-Implementación del Contrato Inteligente
+2. **Estabilidad del Valor**
+   - El valor del token está directamente vinculado al precio del oro en los mercados internacionales, proporcionando una relativa estabilidad comparada con otras criptomonedas más volátiles.
 
-Escribir el código del contrato inteligente en el lenguaje adecuado (Solidity para Ethereum, por ejemplo).
-Implementar mecanismos de vinculación al precio del oro.
-Pruebas Iniciales del Contrato Inteligente
+3. **Transparencia y Auditorías**
+   - Se realizan auditorías regulares de las reservas de oro físico, y los resultados se publican de manera transparente. La cantidad de oro almacenado siempre corresponde con el número de tokens emitidos.
 
-Realizar pruebas unitarias y de integración en un entorno local.
-Revisar y refactorizar el código según sea necesario.
-Semana 5-6: Integración y Seguridad
-Integración de Oráculos de Precio del Oro
+4. **Divisibilidad**
+   - Un token de oro es divisible, permitiendo a los usuarios poseer y transaccionar pequeñas fracciones de un token, ideal para microtransacciones.
 
-Seleccionar e integrar oráculos confiables para obtener el precio del oro.
-Configurar la actualización automática del precio del token basado en el oro.
-Revisión y Auditoría de Seguridad
+5. **Transferibilidad**
+   - Los tokens pueden ser transferidos de manera instantánea y segura entre usuarios en la blockchain, facilitando la compra, venta e intercambio de oro a nivel global.
 
-Realizar una revisión exhaustiva del contrato inteligente.
-Contratar una auditoría de seguridad por una empresa especializada.
-Desarrollo de Interfaz de Usuario (Opcional)
+6. **Uso como Medio de Intercambio**
+   - Además de ser una reserva de valor, los tokens de oro pueden ser utilizados como medio de intercambio en transacciones, especialmente en situaciones donde se prefiere la estabilidad del oro sobre monedas fiat volátiles.
 
-Si es necesario, desarrollar una interfaz de usuario para la gestión de la criptomoneda.
-Integrar la interfaz con el contrato inteligente.
-Semana 7: Pruebas y Preparación para el Lanzamiento
-Pruebas en Testnet
+7. **Redención de Oro Físico**
+   - Dependiendo del emisor del token, los usuarios pueden tener la opción de canjear sus tokens por oro físico, sujeto a tarifas de manejo y envío.
 
-Implementar el contrato inteligente en una red de prueba (testnet).
-Realizar pruebas extensivas en el entorno de prueba.
-Identificar y corregir cualquier problema.
-Documentación
+8. **Cumplimiento Regulatorio**
+   - Los emisores de tokens de oro deben cumplir con leyes y regulaciones locales e internacionales, incluyendo políticas de lucha contra el lavado de dinero (AML) y conocimiento del cliente (KYC).
 
-Crear documentación detallada del proyecto (documentación técnica, guías de usuario, etc.).
-Preparar informes de auditoría y resultados de pruebas.
-Semana 8: Lanzamiento y Post-Lanzamiento
-Implementación en Mainnet
+9. **Seguridad**
+   - La seguridad del token está garantizada por la tecnología blockchain, mientras que el oro físico se almacena bajo medidas de seguridad rigurosas.
 
-Implementar el contrato inteligente en la red principal (mainnet).
-Realizar pruebas finales en el entorno de producción.
-Estrategia de Marketing y Listado en Exchanges
+10. **Actualización del Precio**
+    - El valor del token se actualiza periódicamente basado en el precio del oro en el mercado global, utilizando oráculos de precios que proporcionan datos en tiempo real a los contratos inteligentes.
 
-Ejecutar la estrategia de marketing planificada.
-Coordinar con exchanges para listar la criptomoneda.
-Monitoreo y Soporte Post-Lanzamiento
 
-Monitorear el rendimiento del contrato inteligente.
-Proveer soporte técnico y resolver cualquier problema post-lanzamiento.
-Resumen del Cronograma
-Semana 1-2: Planificación y Configuración.
-Semana 3-4: Desarrollo del Contrato Inteligente.
-Semana 5-6: Integración y Seguridad.
-Semana 7: Pruebas y Preparación para el Lanzamiento.
-Semana 8: Lanzamiento y Post-Lanzamiento.
+ 
