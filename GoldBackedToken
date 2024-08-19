@@ -1,0 +1,67 @@
+/ SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+
+contract GoldBackedToken is ERC20 {
+    AggregatorV3Interface internal priceFeed;
+    address public owner;
+
+    constructor() ERC20("GoldBackedToken", "GBT") {
+        // Dirección del contrato del oráculo de Chainlink para el precio del oro en USD (esto es un ejemplo)
+        priceFeed = AggregatorV3Interface(0xC5981F461d74c46eB4b0CF3f4Ec79f025573B0Ea);
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only owner can perform this action");
+        _;
+    }
+
+    // Función para obtener el precio actual del oro en la unidad más pequeña
+    function getLatestGoldPrice() public view returns (uint256) {
+        (
+            , 
+            int price,
+            ,
+            ,
+            
+        ) = priceFeed.latestRoundData();
+        require(price > 0, "Invalid price from oracle");
+        return uint256(price);
+    }
+
+    // Función para convertir el precio a dólares
+    function convertPriceToDollars(uint256 priceInSmallestUnit) public pure returns (uint256) {
+        // Dividimos por 1e8 (10^8) para convertirlo a dólares
+        uint256 priceInDollars = priceInSmallestUnit / 1e8;
+        return priceInDollars;
+    }
+
+    // Función para que los usuarios compren tokens
+    function buyTokens() public payable {
+        uint256 goldPriceInSmallestUnit = getLatestGoldPrice(); // Precio del oro en la unidad más pequeña
+        uint256 goldPriceInDollars = convertPriceToDollars(goldPriceInSmallestUnit); // Convertimos a dólares
+
+        require(goldPriceInDollars > 0, "Gold price must be greater than zero");
+
+        // Cantidad de ETH enviada por el comprador en wei (1 ETH = 1e18 wei)
+        uint256 amountETHInWei = msg.value;
+
+        // Suponiendo que 1 token = 1 onza de oro, entonces:
+        // Calculamos cuántos tokens puede comprar con la cantidad de ETH enviada
+        uint256 tokensToBuy = amountETHInWei / (goldPriceInDollars * 1e18); // convertimos ETH a la misma escala
+
+        // Verifica que el comprador puede comprar al menos 1 token
+        require(tokensToBuy > 0, "Not enough ETH to buy any tokens");
+
+        // Mint los tokens al comprador
+        _mint(msg.sender, tokensToBuy);
+    }
+
+    // Función para retirar ETH acumulado en el contrato
+    function withdrawETH() public onlyOwner {
+        payable(owner).transfer(address(this).balance);
+    }
+}
