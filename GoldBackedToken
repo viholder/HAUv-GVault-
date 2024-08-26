@@ -1,4 +1,3 @@
-/ SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
@@ -7,11 +6,13 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 contract GoldBackedToken is ERC20 {
     AggregatorV3Interface internal priceFeed;
     address public owner;
+    bool public isActive;
+    mapping(address => bool) public blacklist;
 
-    constructor() ERC20("GoldBackedToken", "GBT") {
-        // Dirección del contrato del oráculo de Chainlink para el precio del oro en USD (esto es un ejemplo)
+    constructor() ERC20("GoldBackedToken", "HAUv") {
         priceFeed = AggregatorV3Interface(0xC5981F461d74c46eB4b0CF3f4Ec79f025573B0Ea);
         owner = msg.sender;
+        isActive = true;
     }
 
     modifier onlyOwner() {
@@ -19,45 +20,70 @@ contract GoldBackedToken is ERC20 {
         _;
     }
 
-    // Función para obtener el precio actual del oro en la unidad más pequeña
-    function getLatestGoldPrice() public view returns (uint256) {
+    modifier contractIsActive() {
+        require(isActive, "Contract is currently inactive");
+        _;
+    }
+
+    modifier notBlacklisted(address _account) {
+        require(!blacklist[_account], "Address is blacklisted");
+        _;
+    }
+
+    // Función para obtener el precio actual del oro en USD
+    function getLatestGoldPrice() public view returns (int) {
         (
             , 
             int price,
             ,
             ,
-            
         ) = priceFeed.latestRoundData();
-        require(price > 0, "Invalid price from oracle");
-        return uint256(price);
+        return price;
     }
 
-    // Función para convertir el precio a dólares
-    function convertPriceToDollars(uint256 priceInSmallestUnit) public pure returns (uint256) {
-        // Dividimos por 1e8 (10^8) para convertirlo a dólares
-        uint256 priceInDollars = priceInSmallestUnit / 1e8;
-        return priceInDollars;
+    // Función para actualizar la fuente del feed del precio del oro
+    function updatePriceFeed(address newPriceFeed) public onlyOwner {
+        priceFeed = AggregatorV3Interface(newPriceFeed);
     }
 
-    // Función para que los usuarios compren tokens
-    function buyTokens() public payable {
-        uint256 goldPriceInSmallestUnit = getLatestGoldPrice(); // Precio del oro en la unidad más pequeña
-        uint256 goldPriceInDollars = convertPriceToDollars(goldPriceInSmallestUnit); // Convertimos a dólares
+    // Función para ajustar la oferta total del token basada en el precio del oro
+    function adjustTokenSupply() public onlyOwner contractIsActive {
+        int goldPrice = getLatestGoldPrice();
+        
+        uint256 supply = totalSupply();
 
-        require(goldPriceInDollars > 0, "Gold price must be greater than zero");
+        if (goldPrice > int(supply)) {
+            _mint(owner, uint256(goldPrice) - supply);
+        } else if (goldPrice < int(supply)) {
+            _burn(owner, supply - uint256(goldPrice));
+        }
+    }
 
-        // Cantidad de ETH enviada por el comprador en wei (1 ETH = 1e18 wei)
-        uint256 amountETHInWei = msg.value;
-
-        // Suponiendo que 1 token = 1 onza de oro, entonces:
-        // Calculamos cuántos tokens puede comprar con la cantidad de ETH enviada
-        uint256 tokensToBuy = amountETHInWei / (goldPriceInDollars * 1e18); // convertimos ETH a la misma escala
-
-        // Verifica que el comprador puede comprar al menos 1 token
-        require(tokensToBuy > 0, "Not enough ETH to buy any tokens");
-
-        // Mint los tokens al comprador
+    // Función para permitir a los usuarios comprar tokens
+    function buyTokens() public payable contractIsActive notBlacklisted(msg.sender) {
+        int goldPrice = getLatestGoldPrice();
+        uint256 tokensToBuy = uint256(msg.value * uint256(goldPrice));
         _mint(msg.sender, tokensToBuy);
+    }
+
+    // Función para quemar tokens
+    function burnTokens(uint256 amount) public contractIsActive notBlacklisted(msg.sender) {
+        _burn(msg.sender, amount);
+    }
+
+    // Función para agregar una dirección a la lista negra
+    function addToBlacklist(address _account) public onlyOwner {
+        blacklist[_account] = true;
+    }
+
+    // Función para eliminar una dirección de la lista negra
+    function removeFromBlacklist(address _account) public onlyOwner {
+        blacklist[_account] = false;
+    }
+
+    // Función para activar o desactivar el contrato
+    function setContractActive(bool _isActive) public onlyOwner {
+        isActive = _isActive;
     }
 
     // Función para retirar ETH acumulado en el contrato
