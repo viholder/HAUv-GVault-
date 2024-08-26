@@ -37,12 +37,10 @@ Criptomoneda digital que está respaldada o vinculada al valor del oro físico. 
 -------------------------------------------------------------------------------------------------------------
 
 Token HAUv:
-https://sepolia.etherscan.io/token/
-0xb186ea8beedfd8c663bbe709f2ba3c471d5879c4
+https://sepolia.etherscan.io/token/0xb186ea8beedfd8c663bbe709f2ba3c471d5879c4
 
 CONTRATO:
-https://sepolia.etherscan.io/address/
-0xb186ea8beedfd8c663bbe709f2ba3c471d5879c4
+https://sepolia.etherscan.io/address/0xb186ea8beedfd8c663bbe709f2ba3c471d5879c4
 
 Propietario:
 Cartera:
