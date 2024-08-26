@@ -34,5 +34,25 @@ Criptomoneda digital que está respaldada o vinculada al valor del oro físico. 
 10. **Actualización del Precio**
     - El valor del token se actualiza periódicamente basado en el precio del oro en el mercado global, utilizando oráculos de precios que proporcionan datos en tiempo real a los contratos inteligentes.
 
+-------------------------------------------------------------------------------------------------------------
+
+Token HAUv:
+https://sepolia.etherscan.io/token/
+0xb186ea8beedfd8c663bbe709f2ba3c471d5879c4
+
+CONTRATO:
+https://sepolia.etherscan.io/address/
+0xb186ea8beedfd8c663bbe709f2ba3c471d5879c4
+
+Propietario:
+Cartera:
+0x00eb0316f6cb4e4499d20a2bba7748901da62811
+
+Clave privada: 
+b36c4f1371e5377ae1d1dde37776bdca7bad9e3204017c19cec 3df7145da4072 
+
+-------------------------------------------------------------------------------------------------------------
+
+
 
  
